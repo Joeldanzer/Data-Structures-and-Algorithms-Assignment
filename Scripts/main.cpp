@@ -2,6 +2,7 @@
 
 #include "BubbleSort/BubbleSort.h"
 #include "InsertionSort/InsertionSort.h"
+#include "QuickSort/QuickSort.h"
 
 #include <iomanip>
 #include <chrono>
@@ -31,6 +32,9 @@ template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING
 		case INSERTION_SORT:
 			InsertionSort(arr, size);
 			break;
+		case QUICK_SORT:
+			QuickSort(arr, size, 0, size - 1);
+			break;
 		default:
 			break;
 		}
@@ -44,15 +48,16 @@ int main() {
 	std::random_device dev;
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(MinNumber, MaxNumber);
+	
+	std::array<int, MaxArrayCount> sortArray = {};
 
 	// Bubble Sort
 	{
-		std::array<int, MaxArrayCount> bubbleSortArray = {};
-		RandomizeArray<int>(&bubbleSortArray[0], MaxArrayCount, rng, dist);
-		float timeTaken = RunSortingAlgorithm(&bubbleSortArray[0], MaxArrayCount, BUBBLE_SORT);
+		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
+		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, BUBBLE_SORT);
 
 		std::cout << "\n \n";
-		PrintArray<int>(&bubbleSortArray[0], MaxArrayCount, "Bubble Sort: ");
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Bubble Sort: ");
 		std::cout << "------------------------------------------------------------------------------------------------ \n";
 		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
 	}
@@ -61,19 +66,26 @@ int main() {
 
 	// Insertion Sort
 	{
-		std::array<int, MaxArrayCount> insertionSortArray = {};
-		RandomizeArray<int>(&insertionSortArray[0], MaxArrayCount, rng, dist);
+		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
 		
-		float timeTaken = RunSortingAlgorithm(&insertionSortArray[0], MaxArrayCount, INSERTION_SORT);
+		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, INSERTION_SORT);
 		std::cout << "\n \n";
-		PrintArray<int>(&insertionSortArray[0], MaxArrayCount, "Insertion Sort: ");
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Insertion Sort: ");
 		std::cout << "------------------------------------------------------------------------------------------------ \n";
 		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
 	}
 
 	// Quick Sort
 	{
+		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
 
+		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, QUICK_SORT);
+		std::cout << "\n \n";
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Quick Sort: ");
+		std::cout << "------------------------------------------------------------------------------------------------ \n";
+		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
 	}
+
+	return 0;
 }
 

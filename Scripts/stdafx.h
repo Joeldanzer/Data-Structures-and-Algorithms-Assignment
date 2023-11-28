@@ -1,6 +1,8 @@
 // Precompiled header
 #pragma once
 
+#define PRINT_RANDOM_ARRAY 0 // Set to 1 if you want to print the randomized Array
+
 #include <Windows.h>
 #include <iostream>
 #include <string>
@@ -32,7 +34,7 @@ template <typename T> void RandomizeArray(T* arr, const UINT size, std::mt19937&
 
 	for (UINT i = 0; i < size; i++) {
 		arr[i] = dist(rng);	
-#ifdef _DEBUG
+#if PRINT_RANDOM_ARRAY
 		std::cout << " " << static_cast<int>(arr[i]) << " ";
 		if (newRow == MaxRowCount) {
 			printf("\n");
