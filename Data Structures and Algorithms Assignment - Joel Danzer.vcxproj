@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\BubbleSort\BubbleSort.h" />
+    <ClInclude Include="Scripts\HeapSort\HeapSort.h" />
     <ClInclude Include="Scripts\InsertionSort\InsertionSort.h" />
     <ClInclude Include="Scripts\MergeSort\MergeSort.h" />
     <ClInclude Include="Scripts\QuickSort\QuickSort.h" />

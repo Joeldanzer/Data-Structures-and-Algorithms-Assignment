@@ -6,10 +6,19 @@ template <typename T> void Merge(T* arr, const int left, const int mid, const in
 	int const arrayTwo = right - mid;
 
 	T* leftArray = new T[arrayOne];
-	memcpy(leftArray, &arr[left] /*+ (left * sizeof(T))*/, sizeof(T) * arrayOne); // Trying out if memcpy is a faster solution
-
+	memcpy(leftArray, &arr[left], sizeof(T) * arrayOne); // Trying out if memcpy is a faster solution, probably isnt as we do multiple copies 
+	
 	T* rightArray = new T[arrayTwo];
-	memcpy(rightArray, &arr[mid + 1] /* + (right * sizeof(T))*/, sizeof(T) * arrayTwo);
+	memcpy(rightArray, &arr[mid + 1], sizeof(T) * arrayTwo);
+
+	for (int i = 0; i < arrayOne; i++)
+		leftArray[i] = arr[left + i];
+	for (int i = 0; i < arrayTwo; i++)
+		rightArray[j] = arr[mid + 1 + j];
+
+	
+
+
 
 	UINT indexArrayOne = 0;
 	UINT indexArrayTwo = 0;
@@ -39,8 +48,9 @@ template <typename T> void Merge(T* arr, const int left, const int mid, const in
 		indexArrayTwo++;
 		indexMergedArray++;
 	}
-	
-	delete[] rightArray;
+
+	// Delete the array of pointers
+	delete[] rightArray; 
 	delete[] leftArray;
 }
 

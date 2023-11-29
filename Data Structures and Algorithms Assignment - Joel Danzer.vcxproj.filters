@@ -20,6 +20,7 @@
     <ClInclude Include="Scripts\InsertionSort\InsertionSort.h" />
     <ClInclude Include="Scripts\QuickSort\QuickSort.h" />
     <ClInclude Include="Scripts\MergeSort\MergeSort.h" />
+    <ClInclude Include="Scripts\HeapSort\HeapSort.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Files\Nodes.txt" />

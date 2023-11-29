@@ -4,26 +4,23 @@
 #include "InsertionSort/InsertionSort.h"
 #include "QuickSort/QuickSort.h"
 #include "MergeSort/MergeSort.h"
+#include "HeapSort/HeapSort.h"
 
-#include <iomanip>
 #include <chrono>
 
-const UINT MaxArrayCount = 100;
-const UINT NumberOfTests = 1;
-
-const int MinNumber = 0;
-const int MaxNumber = 100;
-
 enum SORTING_ALGORITHMS {
+	//* Simple
 	BUBBLE_SORT,
 	INSERTION_SORT,
 	QUICK_SORT,
+
+	//* Advanced
 	MERGE_SORT,
+	HEAP_SORT,
 };
 
 template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING_ALGORITHMS algorithm) {	
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-
 	for (UINT i = 0; i < NumberOfTests; i++)
 	{
 		switch (algorithm)
@@ -40,70 +37,61 @@ template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING
 		case MERGE_SORT:
 			MergeSort(arr, 0, size - 1);
 			break;
-		default:
-			break;
+		case HEAP_SORT:
+			HeapSort(arr, size);
+
 		}
 	}
-
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	return std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
 }
 
+//* Moved up here so that memory is initialized on the heap instead of the stack
+std::array<int, MaxArrayCount> sortArray = {};
+std::random_device dev;
+std::mt19937 rng(dev());
+std::uniform_int_distribution<std::mt19937::result_type> dist(MinNumber, MaxNumber);
+
 int main() {	
-	std::random_device dev;
-	std::mt19937 rng(dev());
-	std::uniform_int_distribution<std::mt19937::result_type> dist(MinNumber, MaxNumber);
-	
-	std::array<int, MaxArrayCount> sortArray = {};
 
 	// Bubble Sort
 	{
-		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
+		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist); 
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, BUBBLE_SORT);
 
-		std::cout << "\n \n";
-		PrintArray<int>(&sortArray[0], MaxArrayCount, "Bubble Sort: ");
-		std::cout << "------------------------------------------------------------------------------------------------ \n";
-		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Bubble Sort: ", timeTaken);
 	}
-
-	std::cout << "\n";
 
 	// Insertion Sort
 	{
 		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
 		
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, INSERTION_SORT);
-		std::cout << "\n \n";
-		PrintArray<int>(&sortArray[0], MaxArrayCount, "Insertion Sort: ");
-		std::cout << "------------------------------------------------------------------------------------------------ \n";
-		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Insertion Sort: ", timeTaken);
 	}
-
-	std::cout << "\n";
 
 	// Quick Sort
 	{
 		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
 
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, QUICK_SORT);
-		std::cout << "\n \n";
-		PrintArray<int>(&sortArray[0], MaxArrayCount, "Quick Sort: ");
-		std::cout << "------------------------------------------------------------------------------------------------ \n";
-		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Quick Sort: ", timeTaken);
 	}
 	
-	std::cout << "\n";
-
 	// Merge Sort
 	{
 		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
 
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, MERGE_SORT);
-		std::cout << "\n \n";
-		PrintArray<int>(&sortArray[0], MaxArrayCount, "Merge Sort: ");
-		std::cout << "------------------------------------------------------------------------------------------------ \n";
-		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Merge Sort: ", timeTaken);
+	}
+
+	// Heap Sort
+	{
+		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
+
+		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, HEAP_SORT);
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Heap Sort: ", timeTaken);
 	}
 
 	return 0;
