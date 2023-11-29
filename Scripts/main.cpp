@@ -1,10 +1,10 @@
 #include "stdafx.h"
 
-#include "BubbleSort/BubbleSort.h"
-#include "InsertionSort/InsertionSort.h"
-#include "QuickSort/QuickSort.h"
-#include "MergeSort/MergeSort.h"
-#include "HeapSort/HeapSort.h"
+#include "Sorting Algorithms/BubbleSort/BubbleSort.h"
+#include "Sorting Algorithms/InsertionSort/InsertionSort.h"
+#include "Sorting Algorithms/QuickSort/QuickSort.h"
+#include "Sorting Algorithms/MergeSort/MergeSort.h"
+#include "Sorting Algorithms/HeapSort/HeapSort.h"
 
 #include <chrono>
 
@@ -52,11 +52,10 @@ std::random_device dev;
 std::mt19937 rng(dev());
 std::uniform_int_distribution<std::mt19937::result_type> dist(MinNumber, MaxNumber);
 
-int main() {	
-
+void SortingAlgorithms() {
 	// Bubble Sort
 	{
-		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist); 
+		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, BUBBLE_SORT);
 
 		PrintArray<int>(&sortArray[0], MaxArrayCount, "Bubble Sort: ", timeTaken);
@@ -65,7 +64,7 @@ int main() {
 	// Insertion Sort
 	{
 		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
-		
+
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, INSERTION_SORT);
 		PrintArray<int>(&sortArray[0], MaxArrayCount, "Insertion Sort: ", timeTaken);
 	}
@@ -77,7 +76,7 @@ int main() {
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, QUICK_SORT);
 		PrintArray<int>(&sortArray[0], MaxArrayCount, "Quick Sort: ", timeTaken);
 	}
-	
+
 	// Merge Sort
 	{
 		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
@@ -93,6 +92,11 @@ int main() {
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, HEAP_SORT);
 		PrintArray<int>(&sortArray[0], MaxArrayCount, "Heap Sort: ", timeTaken);
 	}
+}
+
+int main() {	
+
+	SortingAlgorithms();
 
 	return 0;
 }
