@@ -6,6 +6,8 @@
 #include "Sorting Algorithms/MergeSort/MergeSort.h"
 #include "Sorting Algorithms/HeapSort/HeapSort.h"
 
+#include "BreadthFirst.h"
+
 #include <chrono>
 
 enum SORTING_ALGORITHMS {
@@ -39,7 +41,6 @@ template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING
 			break;
 		case HEAP_SORT:
 			HeapSort(arr, size);
-
 		}
 	}
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
@@ -94,9 +95,15 @@ void SortingAlgorithms() {
 	}
 }
 
-int main() {	
 
+
+int main() {	
 	SortingAlgorithms();
+
+	BreadthFirst breadth;
+	breadth.ConstrucGraph("Nodes.txt");
+
+
 
 	return 0;
 }

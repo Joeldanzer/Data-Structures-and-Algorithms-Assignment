@@ -19,17 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scripts\BreadthFirst.cpp" />
     <ClCompile Include="Scripts\main.cpp" />
     <ClCompile Include="Scripts\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scripts\BubbleSort\BubbleSort.h" />
-    <ClInclude Include="Scripts\HeapSort\HeapSort.h" />
-    <ClInclude Include="Scripts\InsertionSort\InsertionSort.h" />
-    <ClInclude Include="Scripts\MergeSort\MergeSort.h" />
-    <ClInclude Include="Scripts\QuickSort\QuickSort.h" />
+    <ClInclude Include="Scripts\BreadthFirst.h" />
+    <ClInclude Include="Scripts\Sorting Algorithms\BubbleSort\BubbleSort.h" />
+    <ClInclude Include="Scripts\Sorting Algorithms\HeapSort\HeapSort.h" />
+    <ClInclude Include="Scripts\Sorting Algorithms\InsertionSort\InsertionSort.h" />
+    <ClInclude Include="Scripts\Sorting Algorithms\MergeSort\MergeSort.h" />
+    <ClInclude Include="Scripts\Sorting Algorithms\QuickSort\QuickSort.h" />
     <ClInclude Include="Scripts\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
