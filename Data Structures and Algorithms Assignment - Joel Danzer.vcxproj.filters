@@ -19,6 +19,7 @@
     <ClInclude Include="Scripts\BubbleSort\BubbleSort.h" />
     <ClInclude Include="Scripts\InsertionSort\InsertionSort.h" />
     <ClInclude Include="Scripts\QuickSort\QuickSort.h" />
+    <ClInclude Include="Scripts\MergeSort\MergeSort.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Files\Nodes.txt" />

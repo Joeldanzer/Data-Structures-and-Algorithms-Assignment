@@ -1,7 +1,8 @@
 // Precompiled header
 #pragma once
 
-#define PRINT_RANDOM_ARRAY 0 // Set to 1 if you want to print the randomized Array
+#define PRINT_RANDOM_ARRAY 1 // Set to 1 if you want to print the randomized Array
+#define PRINT_ARRAY_RESULT 1 // Set to 0 if you do not want to print output of array
 
 #include <Windows.h>
 #include <iostream>
@@ -18,6 +19,7 @@ template <typename T> void PrintArray(T* arr, const UINT size, std::string arrTy
 
 	std::cout << arrType << "\n";
 
+#if PRINT_ARRAY_RESULT
 	for (UINT i = 0; i < size; i++) {	
 		std::cout << " " << static_cast<int>(arr[i]) << " ";
 		if (newRow == MaxRowCount) {
@@ -27,6 +29,7 @@ template <typename T> void PrintArray(T* arr, const UINT size, std::string arrTy
 
 		newRow++;
 	}	
+#endif
 }
 
 template <typename T> void RandomizeArray(T* arr, const UINT size, std::mt19937& rng, std::uniform_int_distribution<std::mt19937::result_type>& dist) {	

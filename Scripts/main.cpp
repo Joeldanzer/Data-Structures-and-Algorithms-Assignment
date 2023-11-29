@@ -3,11 +3,12 @@
 #include "BubbleSort/BubbleSort.h"
 #include "InsertionSort/InsertionSort.h"
 #include "QuickSort/QuickSort.h"
+#include "MergeSort/MergeSort.h"
 
 #include <iomanip>
 #include <chrono>
 
-const UINT MaxArrayCount = 1000;
+const UINT MaxArrayCount = 100;
 const UINT NumberOfTests = 1;
 
 const int MinNumber = 0;
@@ -17,6 +18,7 @@ enum SORTING_ALGORITHMS {
 	BUBBLE_SORT,
 	INSERTION_SORT,
 	QUICK_SORT,
+	MERGE_SORT,
 };
 
 template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING_ALGORITHMS algorithm) {	
@@ -34,6 +36,9 @@ template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING
 			break;
 		case QUICK_SORT:
 			QuickSort(arr, size, 0, size - 1);
+			break;
+		case MERGE_SORT:
+			MergeSort(arr, 0, size - 1);
 			break;
 		default:
 			break;
@@ -75,6 +80,8 @@ int main() {
 		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
 	}
 
+	std::cout << "\n";
+
 	// Quick Sort
 	{
 		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
@@ -82,6 +89,19 @@ int main() {
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, QUICK_SORT);
 		std::cout << "\n \n";
 		PrintArray<int>(&sortArray[0], MaxArrayCount, "Quick Sort: ");
+		std::cout << "------------------------------------------------------------------------------------------------ \n";
+		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
+	}
+	
+	std::cout << "\n";
+
+	// Merge Sort
+	{
+		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
+
+		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, MERGE_SORT);
+		std::cout << "\n \n";
+		PrintArray<int>(&sortArray[0], MaxArrayCount, "Merge Sort: ");
 		std::cout << "------------------------------------------------------------------------------------------------ \n";
 		std::cout << "Time taken: " << std::fixed << std::setprecision(5) << timeTaken << "ms \n";
 	}
