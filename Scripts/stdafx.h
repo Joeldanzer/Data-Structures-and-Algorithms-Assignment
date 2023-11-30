@@ -13,13 +13,17 @@
 #include <array>
 #include <vector>
 
+#include <fstream>
+#include <sstream>
+
 const UINT MaxArrayCount = 10000;
 const UINT NumberOfTests = 1;
 
 const int MinNumber = 0;
 const int MaxNumber = 100;
 
-const UINT MaxRowCount = 20;
+const UINT MaxRowPrintCount = 20; // How many roes each list will print
+
 
 template <typename T> void PrintArray(T* arr, const UINT size, std::string arrType, float duration) {
 	std::cout << arrType << "\n";

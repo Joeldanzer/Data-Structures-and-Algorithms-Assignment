@@ -95,15 +95,40 @@ void SortingAlgorithms() {
 	}
 }
 
+void GetArrayFromFile(char* arr, std::string fileName) {
+	std::ifstream file(fileName);
+	if (file.is_open()) {
+		std::string line;
 
+		UINT i = 0;
+		while (std::getline(file, line)) { // Fetch all char from file
+			if (line.find_first_of("L") != std::string::npos) // exit if we get to a letter that is not on the graph
+				break;
+
+			for (UINT j = 0; j < line.size(); j++)
+			{
+				arr[i] = line[j];
+				i++;
+			}
+		}
+
+	}
+	else
+		std::cout << "Failed to open file! \n";
+
+	file.close();
+}
 
 int main() {	
 	SortingAlgorithms();
 
 	BreadthFirst breadth;
-	breadth.ConstrucGraph("Nodes.txt");
 
-
+	std::array<char, 400> charNodes;
+	GetArrayFromFile(&charNodes[0], "Nodes.txt");
+	const std::array<UINT, 2> startEnd = breadth.ConstrucGraph(&charNodes[0], 400);
+	if(breadth.FindPath(startEnd[0], startEnd[1]))
+		breadth.PrintPath(startEnd[0], startEnd[1]);
 
 	return 0;
 }
