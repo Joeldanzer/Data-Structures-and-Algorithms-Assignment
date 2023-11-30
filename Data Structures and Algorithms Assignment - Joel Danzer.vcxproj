@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scripts\DepthFirst.cpp" />
     <ClCompile Include="Scripts\BreadthFirst.cpp" />
     <ClCompile Include="Scripts\main.cpp" />
     <ClCompile Include="Scripts\stdafx.cpp">
@@ -26,6 +27,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scripts\DepthFirst.h" />
     <ClInclude Include="Scripts\BreadthFirst.h" />
     <ClInclude Include="Scripts\Sorting Algorithms\BubbleSort\BubbleSort.h" />
     <ClInclude Include="Scripts\Sorting Algorithms\HeapSort\HeapSort.h" />

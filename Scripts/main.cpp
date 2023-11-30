@@ -7,6 +7,7 @@
 #include "Sorting Algorithms/HeapSort/HeapSort.h"
 
 #include "BreadthFirst.h"
+#include "DepthFirst.h"
 
 #include <chrono>
 
@@ -54,6 +55,7 @@ std::mt19937 rng(dev());
 std::uniform_int_distribution<std::mt19937::result_type> dist(MinNumber, MaxNumber);
 
 void SortingAlgorithms() {
+	std::cout << "Sorting Algorithms Start: \n \n";
 	// Bubble Sort
 	{
 		RandomizeArray<int>(&sortArray[0], MaxArrayCount, rng, dist);
@@ -93,6 +95,7 @@ void SortingAlgorithms() {
 		float timeTaken = RunSortingAlgorithm(&sortArray[0], MaxArrayCount, HEAP_SORT);
 		PrintArray<int>(&sortArray[0], MaxArrayCount, "Heap Sort: ", timeTaken);
 	}
+	std::cout << "Sorting Algorithms End: \n \n";
 }
 
 void GetArrayFromFile(char* arr, std::string fileName) {
@@ -122,13 +125,33 @@ void GetArrayFromFile(char* arr, std::string fileName) {
 int main() {	
 	SortingAlgorithms();
 
-	BreadthFirst breadth;
-
+	std::cout << "Graph Search Algorithms Start: \n \n";
 	std::array<char, 400> charNodes;
 	GetArrayFromFile(&charNodes[0], "Nodes.txt");
-	const std::array<UINT, 2> startEnd = breadth.ConstrucGraph(&charNodes[0], 400);
-	if(breadth.FindPath(startEnd[0], startEnd[1]))
-		breadth.PrintPath(startEnd[0], startEnd[1]);
+
+	// Breadth First Search
+	{
+		BreadthFirst breadth;
+		const std::array<UINT, 2> startEnd = breadth.ConstructGraph(&charNodes[0], 400);
+		if(breadth.FindPath(startEnd[0], startEnd[1]))
+		   breadth.PrintPath(startEnd[0], startEnd[1]);
+
+		std::cout << "\n";
+	}
+
+	// Depth First Search
+	{
+		DepthFirst depth;
+		const std::array<UINT, 2> startEnd = depth.ConstructGraph(&charNodes[0], 400);
+		if (depth.FindPath(startEnd[0], startEnd[1]))
+			depth.PrintPath(startEnd[0], startEnd[1]);
+
+		
+	}
+
+
+
+	std::cout << "Graph Search Algorithms End: \n \n";
 
 	return 0;
 }

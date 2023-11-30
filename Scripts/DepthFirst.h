@@ -1,9 +1,6 @@
 #pragma once
-#include <vector>
-#include <string>
-#include <Windows.h>
 
-class BreadthFirst
+class DepthFirst
 {
 public:
 	struct Node { // Can be reused in A*, Depth and Breadth
@@ -24,7 +21,7 @@ public:
 		}
 	};
 
-	BreadthFirst() : m_nodes({}), m_width(20), m_height(20) {}
+	DepthFirst() : m_nodes({}), m_width(20), m_height(20) {}
 
 	const std::array<UINT, 2> ConstructGraph(const char* arr, const UINT size);
 	bool FindPath(const UINT start, const UINT end);
@@ -37,5 +34,6 @@ private:
 	const UINT m_width;
 	const UINT m_height;
 	std::vector<Node> m_nodes;
+
 };
 
