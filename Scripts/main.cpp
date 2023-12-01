@@ -8,6 +8,7 @@
 
 #include "BreadthFirst.h"
 #include "DepthFirst.h"
+#include "Astar.h"
 
 #include <chrono>
 
@@ -129,12 +130,15 @@ int main() {
 	std::array<char, 400> charNodes;
 	GetArrayFromFile(&charNodes[0], "Nodes.txt");
 
+	UINT start = 0;
+	UINT end   = 0;
+
 	// Breadth First Search
 	{
 		BreadthFirst breadth;
-		const std::array<UINT, 2> startEnd = breadth.ConstructGraph(&charNodes[0], 400);
-		if(breadth.FindPath(startEnd[0], startEnd[1]))
-		   breadth.PrintPath(startEnd[0], startEnd[1]);
+		ConstructGraph(&charNodes[0], start, end, breadth.GetGraph());
+		if(breadth.FindPath(start, end))
+		   DrawPath(breadth.GetGraph(), start, end);
 
 		std::cout << "\n";
 	}
@@ -142,14 +146,20 @@ int main() {
 	// Depth First Search
 	{
 		DepthFirst depth;
-		const std::array<UINT, 2> startEnd = depth.ConstructGraph(&charNodes[0], 400);
-		if (depth.FindPath(startEnd[0], startEnd[1]))
-			depth.PrintPath(startEnd[0], startEnd[1]);
-
-		
+		ConstructGraph(&charNodes[0], start, end, depth.GetGraph());;
+		if (depth.FindPath(start, end))
+			DrawPath(depth.GetGraph(), start, end);	
 	}
 
+	std::cout << "\n";
 
+	// Astar search
+	{
+		Astar astar;
+		ConstructGraph(&charNodes[0], start, end, astar.GetGraph());
+		if (astar.FindPath(start, end))
+			DrawPath(astar.GetGraph(), start, end);	
+	}
 
 	std::cout << "Graph Search Algorithms End: \n \n";
 

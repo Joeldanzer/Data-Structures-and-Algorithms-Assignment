@@ -13,6 +13,7 @@
     <ClCompile Include="Scripts\stdafx.cpp" />
     <ClCompile Include="Scripts\BreadthFirst.cpp" />
     <ClCompile Include="Scripts\DepthFirst.cpp" />
+    <ClCompile Include="Scripts\Astar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\stdafx.h">
@@ -25,6 +26,7 @@
     <ClInclude Include="Scripts\Sorting Algorithms\HeapSort\HeapSort.h" />
     <ClInclude Include="Scripts\BreadthFirst.h" />
     <ClInclude Include="Scripts\DepthFirst.h" />
+    <ClInclude Include="Scripts\Astar.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Files\Nodes.txt" />

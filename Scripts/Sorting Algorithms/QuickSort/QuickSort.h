@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 
 template<typename T> int Partition(T* arr, const int low, const int high) {
 	T pivot = arr[high];

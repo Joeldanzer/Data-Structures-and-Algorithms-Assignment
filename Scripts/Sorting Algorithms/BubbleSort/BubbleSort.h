@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <Windows.h>
 
 // * Simple sorting algorithm
 template <typename T> void BubbleSort(T* arr, UINT size) {

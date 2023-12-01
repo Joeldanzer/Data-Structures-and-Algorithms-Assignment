@@ -1,3 +1,28 @@
+oooooooooooooooooooo
+ooooSooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooooo
+oooooooooooooooooGoo
+oooooooooooooooooooo
+oooooooooooooooooooo
+
+Load 'o's as nodes, 'X's are walls and should not be loaded. Connect all nodes with their immediate neighbors (up, down, left, right) based on their position (x, y).
+
+S is the starting point (also a node), and G is the goal (also a node).
+
 oooooooXooooooXooooo
 ooooSoooooooooXooooo
 oooooooXoooooooooooo
@@ -18,8 +43,3 @@ ooooooooooooooXooooo
 oooooooXooooooXooGoo
 oooooooXoooooooooooo
 oooooooXooooooXooooo
-
-Load 'o's as nodes, 'X's are walls and should not be loaded. Connect all nodes with their immediate neighbors (up, down, left, right) based on their position (x, y).
-
-S is the starting point (also a node), and G is the goal (also a node).
-

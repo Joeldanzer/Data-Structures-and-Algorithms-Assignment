@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 
 template <typename T> void Heapify(T* arr, const UINT size, const UINT index) {
 	UINT largest = index;
