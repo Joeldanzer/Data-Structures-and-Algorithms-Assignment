@@ -14,10 +14,10 @@ oooooooooooooooooooo
 oooooooooooooooooooo
 oooooooooooooooooooo
 oooooooooooooooooooo
-oooooooooooooooooooo
-oooooooooooooooooGoo
-oooooooooooooooooooo
-oooooooooooooooooooo
+ooooooooooooooooXXXo
+ooooooooooooooooXGXo
+ooooooooooooooooXoXo
+ooooooooooooooooooXo
 
 Load 'o's as nodes, 'X's are walls and should not be loaded. Connect all nodes with their immediate neighbors (up, down, left, right) based on their position (x, y).
 

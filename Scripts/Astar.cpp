@@ -8,67 +8,57 @@ bool Astar::FindPath(const UINT start, const UINT end)
 {
     bool finished = false;
     
-    std::priority_queue<NodeCompare, std::vector<NodeCompare>, FCompare> openList; // Holds the current MapIndicies that will be checked       
+    // Compares Nodes f value and places the Nodes with the lowest fScore on top of the queue
+    std::priority_queue<NodeCompare, std::vector<NodeCompare>, FCompare> openList;
     
-    // Closed list used to back track the path after finding end
-    // first = index position on the map, second = last postion in closed list
-    
-    Node& startIndex = m_nodes[start];
-    startIndex.m_f = 0.0f;
-    startIndex.m_g = 0.0f;
+    // Set f & gScore on startNode to 0
+    m_nodes[start].m_f = 0.0f;
+    m_nodes[start].m_g = 0.0f;
 
     openList.push({0.0f, start});
     
-    float fNew = 0.0f;
-    float gNew = 0.0f;
-    float hNew = 0.0f;
+    //float fNew = 0.0f;
+    //float gNew = 0.0f;
+    //float hNew = 0.0f;
     
     while (!finished && !openList.empty()) {
         Node& current = m_nodes[openList.top().m_index];
-        //if (!current.m_checked) {
-            current.m_checked = true;
-            openList.pop();
+        current.m_checked = true;
+        openList.pop();
 
+        for (UINT i = 0; i < current.m_neighbours.size(); i++)
+        {
+            const UINT neighbourIndex = current.m_neighbours[i];
+            if (neighbourIndex == end) {
+                Node& neighbour = m_nodes[neighbourIndex];
+                neighbour.m_parent = PositionToArray(current.m_x, current.m_y);
 
-            for (UINT i = 0; i < current.m_neighbours.size(); i++)
-            {
-                UINT neighbourIndex = current.m_neighbours[i];
-                if (!m_nodes[neighbourIndex].m_checked) {
-                    if (neighbourIndex == end) {
-                        Node& neighbour = m_nodes[neighbourIndex];
-                        neighbour.m_parent = PositionToArray(current.m_x, current.m_y);
+                std::cout << "Goal found att position x: " << neighbour.m_x << " y: " << neighbour.m_y << "\n";
 
-                        std::cout << "Goal found att position x: " << neighbour.m_x << " y: " << neighbour.m_y << "\n";
+                finished = true;
+            }
+            else {
+                Node& neighbour = m_nodes[neighbourIndex];
 
-                        finished = true;
-                    }
-                    else {
-                        Node& neighbour = m_nodes[neighbourIndex];
+                const float gNew = current.m_g + 1.0f;
+                const float hNew = Distance(neighbourIndex, end);
+                const float fNew = gNew + hNew;
 
-                        gNew = current.m_g + 1.0f;
-                        hNew = Distance(neighbourIndex, end);
-                        fNew = gNew + hNew;
+                if (fNew < neighbour.m_f) {
+                    neighbour.m_f = fNew;
+                    neighbour.m_g = gNew;
 
-                        if (fNew < neighbour.m_f) {
-                            neighbour.m_f = fNew;
-                            neighbour.m_g = gNew;
-
-                            neighbour.m_parent = PositionToArray(current.m_x, current.m_y);
-                            openList.push({ neighbour.m_f, neighbourIndex });
-                        }
-                    }
+                    neighbour.m_parent = PositionToArray(current.m_x, current.m_y);
+                    openList.push({ neighbour.m_f, neighbourIndex });
                 }
             }
-        //}
-        //else
-        //    openList.pop();
+        }            
     }
     
     if (!finished)
         std::cout << "No Path Found! \n";
 
     return finished;
-
 }
 
 
