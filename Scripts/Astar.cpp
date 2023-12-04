@@ -10,41 +10,40 @@ bool Astar::FindPath(const UINT start, const UINT end)
     
     // Compares Nodes f value and places the Nodes with the lowest fScore on top of the queue
     std::priority_queue<NodeCompare, std::vector<NodeCompare>, FCompare> openList;
-    
-    // Set f & gScore on startNode to 0
-    m_nodes[start].m_f = 0.0f;
-    m_nodes[start].m_g = 0.0f;
 
-    openList.push({0.0f, start});
-    
-    //float fNew = 0.0f;
-    //float gNew = 0.0f;
-    //float hNew = 0.0f;
-    
+    // Set f & gScore on startNode to 0
+    m_nodes[start].m_f = 0;
+    m_nodes[start].m_g = 0;
+
+    openList.push({ 0, start });
+     
     while (!finished && !openList.empty()) {
         Node& current = m_nodes[openList.top().m_index];
-        current.m_checked = true;
-        openList.pop();
+   
+        if (!current.m_checked) {
+            current.m_checked = true;
+            std::cout << "FValue: " << current.m_f << " Index: " << openList.top().m_index << "\n";
+            openList.pop();
 
-        for (UINT i = 0; i < current.m_neighbours.size(); i++)
-        {
-            const UINT neighbourIndex = current.m_neighbours[i];
-            if (neighbourIndex == end) {
-                Node& neighbour = m_nodes[neighbourIndex];
-                neighbour.m_parent = PositionToArray(current.m_x, current.m_y);
+            if (PositionToArray(current.m_x, current.m_y) == end) {
 
-                std::cout << "Goal found att position x: " << neighbour.m_x << " y: " << neighbour.m_y << "\n";
-
+                std::cout << "Goal found att position x: " << current.m_x << " y: " << current.m_y << "\n";
                 finished = true;
+                break;
             }
-            else {
-                Node& neighbour = m_nodes[neighbourIndex];
 
-                const float gNew = current.m_g + 1.0f;
-                const float hNew = Distance(neighbourIndex, end);
-                const float fNew = gNew + hNew;
+            for (UINT i = 0; i < current.m_neighbours.size(); i++)
+            {
+                const UINT neighbourIndex = current.m_neighbours[i];
+                Node& neighbour           = m_nodes[neighbourIndex];
 
-                if (fNew < neighbour.m_f) {
+                const int gNew = current.m_g + 1;
+                const int hNew = Distance(neighbourIndex, end);
+                const int fNew = gNew + hNew;
+            
+                // Checks if this neighbour is in the openlist && it's fNew is lower than current f or hasnt been checked before
+                if (!neighbour.m_inOpenList && (fNew < neighbour.m_f || !neighbour.m_checked)) {            
+                    neighbour.m_inOpenList = true;
                     neighbour.m_f = fNew;
                     neighbour.m_g = gNew;
 
@@ -52,7 +51,9 @@ bool Astar::FindPath(const UINT start, const UINT end)
                     openList.push({ neighbour.m_f, neighbourIndex });
                 }
             }
-        }            
+        }
+        else
+            openList.pop();
     }
     
     if (!finished)
@@ -60,7 +61,6 @@ bool Astar::FindPath(const UINT start, const UINT end)
 
     return finished;
 }
-
 
 void Astar::ReconstructPath(int startIndex, std::vector<std::pair<int, int>> closedList, std::vector<int>& outPath)
 {
@@ -73,10 +73,10 @@ void Astar::ReconstructPath(int startIndex, std::vector<std::pair<int, int>> clo
         outPath.insert(outPath.begin(), current.first);
     }
 }
-float Astar::Distance(const UINT& n1, const UINT& n2)
+int Astar::Distance(const UINT& n1, const UINT& n2)
 {
-    float x = fabs(static_cast<float>(m_nodes[n1].m_x) - static_cast<float>(m_nodes[n2].m_x));
-    float y = fabs(static_cast<float>(m_nodes[n1].m_y) - static_cast<float>(m_nodes[n2].m_y));
+    int x = fabs(static_cast<float>(m_nodes[n1].m_x) - static_cast<float>(m_nodes[n2].m_x));
+    int y = fabs(static_cast<float>(m_nodes[n1].m_y) - static_cast<float>(m_nodes[n2].m_y));
     return x + y;
 }
 

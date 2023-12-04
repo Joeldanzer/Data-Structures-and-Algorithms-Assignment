@@ -16,7 +16,7 @@ public:
 
 private:
 	struct NodeCompare {	
-		float m_f;
+		int   m_f;
 		UINT  m_index;
 	};
 
@@ -28,7 +28,7 @@ private:
 
 	void ReconstructPath(int startIndex, std::vector<std::pair<int, int>> cameFrom, std::vector<int>& outPath);
 
-	float Distance(const UINT& n1, const UINT& n2);
+	int Distance(const UINT& n1, const UINT& n2);
 	
 	std::vector<Node> m_nodes;
 };

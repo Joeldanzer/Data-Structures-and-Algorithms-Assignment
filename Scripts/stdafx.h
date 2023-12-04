@@ -78,8 +78,9 @@ struct Node {
 	bool m_checked = false;
 
 	// Used specifically for Astar
-	float m_f = FLT_MAX; 
-	float m_g = FLT_MAX; 
+	bool m_inOpenList = false;
+	int m_f = INT_MAX; 
+	int m_g = INT_MAX; 
 };
 
 inline void DrawPath(const std::vector<Node>& nodes, const UINT start, const UINT end) {
@@ -88,8 +89,6 @@ inline void DrawPath(const std::vector<Node>& nodes, const UINT start, const UIN
 	Node currentNode = nodes[end];
 
 	std::vector<UINT> backTrack;
-
-	//m_nodes[start].m_parent = -1;
 
 	while (currentNode.m_parent != start && currentNode.m_parent != -1) {
 		backTrack.emplace_back(currentNode.m_parent);

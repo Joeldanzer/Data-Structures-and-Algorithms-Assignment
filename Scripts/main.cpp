@@ -46,7 +46,7 @@ template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING
 		}
 	}
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-	return std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+	return static_cast<float>(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
 }
 
 //* Moved up here so that memory is initialized on the heap instead of the stack
@@ -136,16 +136,18 @@ int main() {
 	// Breadth First Search
 	{
 		BreadthFirst breadth;
+		std::cout << "Breadth Search: \n";
 		ConstructGraph(&charNodes[0], start, end, breadth.GetGraph());
 		if(breadth.FindPath(start, end))
 		   DrawPath(breadth.GetGraph(), start, end);
 
-		std::cout << "\n";
 	}
+	std::cout << "\n";
 
 	// Depth First Search
 	{
 		DepthFirst depth;
+		std::cout << "Depth Search: \n";
 		ConstructGraph(&charNodes[0], start, end, depth.GetGraph());;
 		if (depth.FindPath(start, end))
 			DrawPath(depth.GetGraph(), start, end);	
@@ -156,6 +158,7 @@ int main() {
 	// Astar search
 	{
 		Astar astar;
+		std::cout << "A* Search: \n";
 		ConstructGraph(&charNodes[0], start, end, astar.GetGraph());
 		if (astar.FindPath(start, end))
 			DrawPath(astar.GetGraph(), start, end);	
