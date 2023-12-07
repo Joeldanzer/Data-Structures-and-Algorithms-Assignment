@@ -16,13 +16,12 @@ bool Astar::FindPath(const UINT start, const UINT end)
     m_nodes[start].m_g = 0;
 
     openList.push({ 0, start });
-     
+    UINT priority = 0;
     while (!finished && !openList.empty()) {
         Node& current = m_nodes[openList.top().m_index];
    
         if (!current.m_checked) {
             current.m_checked = true;
-            std::cout << "FValue: " << current.m_f << " Index: " << openList.top().m_index << "\n";
             openList.pop();
 
             if (PositionToArray(current.m_x, current.m_y) == end) {
@@ -48,7 +47,8 @@ bool Astar::FindPath(const UINT start, const UINT end)
                     neighbour.m_g = gNew;
 
                     neighbour.m_parent = PositionToArray(current.m_x, current.m_y);
-                    openList.push({ neighbour.m_f, neighbourIndex });
+                    openList.push({ neighbour.m_f, neighbourIndex});
+                    priority++;
                 }
             }
         }
@@ -62,17 +62,6 @@ bool Astar::FindPath(const UINT start, const UINT end)
     return finished;
 }
 
-void Astar::ReconstructPath(int startIndex, std::vector<std::pair<int, int>> closedList, std::vector<int>& outPath)
-{
-    std::pair<int, int> current = closedList[closedList.size() - 1];
-    outPath.emplace_back(current.first);
-
-    // Loop through the closedList list and add the coordinate index to outPath
-    while (current.second != 0) {
-        current = closedList[current.second];
-        outPath.insert(outPath.begin(), current.first);
-    }
-}
 int Astar::Distance(const UINT& n1, const UINT& n2)
 {
     int x = fabs(static_cast<float>(m_nodes[n1].m_x) - static_cast<float>(m_nodes[n2].m_x));

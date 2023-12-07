@@ -23,6 +23,12 @@ enum SORTING_ALGORITHMS {
 	HEAP_SORT,
 };
 
+enum SEARCH_ALGORITHMS {
+	BREADTH_SEARCH,
+	DEPTH_SEARCH,
+	ASTAR
+};
+
 template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING_ALGORITHMS algorithm) {	
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	for (UINT i = 0; i < NumberOfTests; i++)
@@ -46,6 +52,39 @@ template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING
 		}
 	}
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+	return static_cast<float>(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
+}
+
+std::array<Graph*, 3> graphs; //Needs to be pointers since it's an abstract class
+
+float RunSearchAlgorithms(char* arr, SEARCH_ALGORITHMS algorithm) {	
+	if (!graphs[algorithm]) {
+		switch (algorithm)
+		{
+		case BREADTH_SEARCH:
+			graphs[algorithm] = new BreadthFirst();
+			break;
+		case DEPTH_SEARCH:
+			graphs[algorithm] = new DepthFirst();
+			break;
+		case ASTAR:
+			graphs[algorithm] = new Astar();
+			break;
+		}
+	}
+	
+	UINT startNode = 0;
+	UINT endNode   = 0;
+
+	ConstructGraph(arr, startNode, endNode, graphs[algorithm]->GetGraph());	
+	
+	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+	bool found = graphs[algorithm]->FindPath(startNode, endNode);
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
+	if (found)
+		DrawPath(graphs[algorithm]->GetGraph(), startNode, endNode);
+
 	return static_cast<float>(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
 }
 
@@ -135,33 +174,26 @@ int main() {
 
 	// Breadth First Search
 	{
-		BreadthFirst breadth;
 		std::cout << "Breadth Search: \n";
-		ConstructGraph(&charNodes[0], start, end, breadth.GetGraph());
-		if(breadth.FindPath(start, end))
-		   DrawPath(breadth.GetGraph(), start, end);
-
+		float duration = RunSearchAlgorithms(&charNodes[0], BREADTH_SEARCH);
+		std::cout << "Time taken for search: " << duration << "ms \n";
 	}
 	std::cout << "\n";
 
 	// Depth First Search
 	{
-		DepthFirst depth;
-		std::cout << "Depth Search: \n";
-		ConstructGraph(&charNodes[0], start, end, depth.GetGraph());;
-		if (depth.FindPath(start, end))
-			DrawPath(depth.GetGraph(), start, end);	
+		std::cout << "Deoth Search: \n";
+		float duration = RunSearchAlgorithms(&charNodes[0], DEPTH_SEARCH);
+		std::cout << "Time taken for search: " << duration << "ms \n";
 	}
 
 	std::cout << "\n";
 
 	// Astar search
 	{
-		Astar astar;
-		std::cout << "A* Search: \n";
-		ConstructGraph(&charNodes[0], start, end, astar.GetGraph());
-		if (astar.FindPath(start, end))
-			DrawPath(astar.GetGraph(), start, end);	
+		std::cout << "Astar Search: \n";
+		float duration = RunSearchAlgorithms(&charNodes[0], ASTAR);
+		std::cout << "Time taken for search: " << duration << "ms \n";
 	}
 
 	std::cout << "Graph Search Algorithms End: \n \n";

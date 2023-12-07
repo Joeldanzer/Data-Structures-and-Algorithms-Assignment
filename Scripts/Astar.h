@@ -2,20 +2,16 @@
 #include <cfloat>
 #include <cstring>
 
-class Astar
+class Astar : public Graph
 {
 public:
-	Astar() : m_nodes({}) {}
+	Astar(){}
 
-	bool FindPath(const UINT start, const UINT end);
-
-	std::vector<Node>& GetGraph(){
-		return m_nodes;
-	}
-
+	bool FindPath(const UINT start, const UINT end) override;
 
 private:
-	struct NodeCompare {	
+
+	struct NodeCompare {
 		int   m_f;
 		UINT  m_index;
 	};
@@ -26,11 +22,7 @@ private:
 		}
 	};
 
-	void ReconstructPath(int startIndex, std::vector<std::pair<int, int>> cameFrom, std::vector<int>& outPath);
-
 	int Distance(const UINT& n1, const UINT& n2);
-	
-	std::vector<Node> m_nodes;
 };
 
 

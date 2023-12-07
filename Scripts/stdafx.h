@@ -44,7 +44,7 @@ template <typename T> void PrintArray(T* arr, const UINT size, std::string arrTy
 	}	
 #endif
 	std::cout << "------------------------------------------------------------------------------------------------ \n";
-	std::cout << "Time taken: " << std::fixed << std::setprecision(3) << duration << "ms with Size " << MaxArrayCount << " & " << NumberOfTests << " Number of tests \n \n \n";
+	std::cout << "Time taken: " << std::fixed << std::setprecision(1) << duration << "ms with Size " << MaxArrayCount << " & " << NumberOfTests << " Number of tests \n \n \n";
 	
 }
 
@@ -81,6 +81,19 @@ struct Node {
 	bool m_inOpenList = false;
 	int m_f = INT_MAX; 
 	int m_g = INT_MAX; 
+};
+
+class Graph {
+public:
+	Graph() : m_nodes(){}
+
+	virtual bool FindPath(const UINT start, const UINT end) = 0;
+	std::vector<Node>& GetGraph() {
+		return m_nodes;
+	}
+
+protected:
+	std::vector<Node> m_nodes;
 };
 
 inline void DrawPath(const std::vector<Node>& nodes, const UINT start, const UINT end) {
