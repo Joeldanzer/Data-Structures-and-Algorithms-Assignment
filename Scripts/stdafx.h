@@ -17,13 +17,14 @@
 #include <sstream>
 
 const UINT MaxArrayCount = 10000;
-const UINT NumberOfTests = 1;
+const UINT NumberOfTests = 10;
 
 const UINT GraphWidth  = 20;
 const UINT GraphHeight = 20;
 
-const int MinNumber = 0;
-const int MaxNumber = 100;
+// Lowest and Highest a number can be randomized to
+const int MinNumber = 0;   
+const int MaxNumber = 100; 
 
 const UINT MaxRowPrintCount = 20; // How many roes each list will print
 
@@ -44,7 +45,8 @@ template <typename T> void PrintArray(T* arr, const UINT size, std::string arrTy
 	}	
 #endif
 	std::cout << "------------------------------------------------------------------------------------------------ \n";
-	std::cout << "Time taken: " << std::fixed << std::setprecision(1) << duration << "ms with Size " << MaxArrayCount << " & " << NumberOfTests << " Number of tests \n \n \n";
+	std::cout << "Time taken: " << std::fixed << std::setprecision(1) << duration << "ms with Size " << MaxArrayCount << " & " << NumberOfTests << " Number of tests \n";
+	std::cout << "Average time taken is: " << duration / NumberOfTests << "ms \n \n";
 	
 }
 
@@ -73,8 +75,8 @@ struct Node {
 
 	std::vector<UINT> m_neighbours;
 
-	int  m_parent = -1;
-	int  m_valid = -1;
+	int  m_parent  = -1;  // Used for back tracking and drawing a path
+	int  m_valid   = -1;  // Checks if a node is not a wall
 	bool m_checked = false;
 
 	// Used specifically for Astar

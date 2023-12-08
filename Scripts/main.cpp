@@ -52,7 +52,7 @@ template <typename T> float RunSortingAlgorithm(T* arr, const UINT size, SORTING
 		}
 	}
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-	return static_cast<float>(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
+	return static_cast<float>(std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
 }
 
 std::array<Graph*, 3> graphs; //Needs to be pointers since it's an abstract class
@@ -85,7 +85,7 @@ float RunSearchAlgorithms(char* arr, SEARCH_ALGORITHMS algorithm) {
 	if (found)
 		DrawPath(graphs[algorithm]->GetGraph(), startNode, endNode);
 
-	return static_cast<float>(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count());
+	return static_cast<float>(std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
 }
 
 //* Moved up here so that memory is initialized on the heap instead of the stack
