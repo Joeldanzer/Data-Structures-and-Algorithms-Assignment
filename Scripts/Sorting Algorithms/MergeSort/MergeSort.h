@@ -10,7 +10,7 @@ template <typename T> void Merge(T* arr, const int left, const int mid, const in
 	T* rightArray = new T[arrayTwo];
 	memcpy(rightArray, &arr[mid + 1], sizeof(T) * arrayTwo);
 
-	//* Do this instead of memcpy since it is definetly faster
+	//* Do this instead of memcpy if you dont understand it or is a faster option
 	//* for (int i = 0; i < arrayOne; i++)
 	//* 	leftArray[i] = arr[left + i];
 	//* for (int i = 0; i < arrayTwo; i++)
